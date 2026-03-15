@@ -1,6 +1,6 @@
 {
   "name": "nxtsecure-openclaw",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "npm CLI wrapper for the OpenClaw security audit skill",
   "license": "MIT",
   "type": "module",
@@ -15,11 +15,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scorpion7slayer/Secure-your-openclaw.git"
+    "url": "git+https://github.com/scorpion7slayer/nxtsecure-openclaw.git"
   },
-  "homepage": "https://github.com/scorpion7slayer/Secure-your-openclaw#readme",
+  "homepage": "https://github.com/scorpion7slayer/nxtsecure-openclaw#readme",
   "bugs": {
-    "url": "https://github.com/scorpion7slayer/Secure-your-openclaw/issues"
+    "url": "https://github.com/scorpion7slayer/nxtsecure-openclaw/issues"
   },
   "keywords": [
     "openclaw",

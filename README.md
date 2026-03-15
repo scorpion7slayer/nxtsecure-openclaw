@@ -1,4 +1,4 @@
-# Secure-your-openclaw
+# nxtsecure-openclaw
 
 OpenClaw security audit skill with an integrated npm CLI.
 
