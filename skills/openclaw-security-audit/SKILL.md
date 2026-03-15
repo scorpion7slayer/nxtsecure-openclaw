@@ -13,12 +13,16 @@ Use this skill when the user wants a repeatable OpenClaw host security audit, a 
 
 ## Workflow
 
-1. Prefer the npm CLI in `{baseDir}/../../bin/nxtsecure.mjs` to keep the agent workflow stable.
-2. From the repository root, create the local configuration with `npm run nxtsecure -- openclaw config init --output ./openclaw-security-audit.conf` or copy `{baseDir}/references/openclaw-security-audit.conf.example`.
-3. Run `npm run nxtsecure -- openclaw audit --config ./openclaw-security-audit.conf` to execute the audit and remediation workflow.
-4. Install the nightly 23:00 cron entry with `npm run nxtsecure -- openclaw cron install --log ~/openclaw-security-audit.log`.
-5. If every check passes, print exactly `audit de sécurité réussi`.
-6. If a check fails, explain the issue, attempt remediation immediately, and rerun the relevant verification.
+1. First install or verify the CLI so the agent uses a stable interface:
+   `npm install -g nxtsecure-openclaw`
+   then verify with:
+   `nxtsecure openclaw doctor`
+2. If the CLI cannot be installed globally, fall back to the repository copy in `{baseDir}/../../bin/nxtsecure.mjs`.
+3. From the repository root, create the local configuration with `nxtsecure openclaw config init --output ./openclaw-security-audit.conf` or copy `{baseDir}/references/openclaw-security-audit.conf.example`.
+4. Run `nxtsecure openclaw audit --config ./openclaw-security-audit.conf` to execute the audit and remediation workflow.
+5. Install the nightly 23:00 cron entry with `nxtsecure openclaw cron install --log ~/openclaw-security-audit.log`.
+6. If every check passes, print exactly `audit de sécurité réussi`.
+7. If a check fails, explain the issue, attempt remediation immediately, and rerun the relevant verification.
 
 ## Checks
 
@@ -70,8 +74,8 @@ When the user wants file or link reputation checks, the agent must use VirusTota
 
 Use the bundled helper:
 
-- `npm run nxtsecure -- openclaw vt url https://example.test`
-- `npm run nxtsecure -- openclaw vt file /path/to/sample.bin`
+- `nxtsecure openclaw vt url https://example.test`
+- `nxtsecure openclaw vt file /path/to/sample.bin`
 - fallback: `{baseDir}/scripts/openclaw_virustotal_check.sh --url https://example.test`
 - fallback: `{baseDir}/scripts/openclaw_virustotal_check.sh --file /path/to/sample.bin`
 
