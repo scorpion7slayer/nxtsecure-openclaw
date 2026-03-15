@@ -1,0 +1,36 @@
+# Copy this file to:
+# - /etc/openclaw-security-audit.conf
+# or point the audit to it with OPENCLAW_AUDIT_CONFIG=/path/to/file
+
+# Expected listening ports. Do not keep 22 here if SSH is enabled.
+# Include the chosen SSH_EXPECTED_PORT instead.
+EXPECTED_TCP_PORTS="80 443 2222"
+EXPECTED_UDP_PORTS=""
+
+# SSH policy. If SSH is enabled, it must not use port 22.
+# Set SSH_EXPECTED_PORT to the chosen non-default port, for example 2222.
+SSH_EXPECTED_PORT="2222"
+SSH_PORT_IN_USE=1
+SSH_REQUIRE_KEYS_ONLY=1
+ENABLE_SSH_PORT_REMEDIATION=0
+
+# VirusTotal integration for URLs and files, without API keys.
+# The agent should use the public VirusTotal website through the OpenClaw browser tool.
+VIRUSTOTAL_ENABLED=0
+VIRUSTOTAL_ALLOW_UPLOADS=0
+VIRUSTOTAL_URLS=""
+VIRUSTOTAL_FILES=""
+
+# List allowed Docker container names, separated by spaces.
+# Leave empty to force the audit to report unmanaged running containers.
+ALLOWED_DOCKER_CONTAINERS=""
+
+# Security thresholds.
+DISK_THRESHOLD_PERCENT=80
+MAX_FAILED_LOGIN_ATTEMPTS=25
+AUTO_SECURITY_UPDATES_REQUIRED=1
+
+# Remediation controls.
+AUTO_REMEDIATE=1
+REMEDIATE_UNEXPECTED_PORTS=0
+ALLOW_DOCKER_PRUNE=0
