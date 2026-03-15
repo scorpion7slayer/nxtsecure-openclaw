@@ -29,12 +29,14 @@ Usage:
   nxtsecure openclaw vt url <url> [--allow-uploads]
   nxtsecure openclaw vt file <path> [--allow-uploads]
   nxtsecure openclaw config init [--output PATH] [--force]
+  nxtsecure openclaw doctor
   nxtsecure openclaw paths
 
 Examples:
   nxtsecure openclaw config init --output ./openclaw-security-audit.conf
   nxtsecure openclaw audit --config ./openclaw-security-audit.conf
   nxtsecure openclaw cron install --log ~/openclaw-security-audit.log
+  nxtsecure openclaw doctor
   nxtsecure openclaw vt url https://example.test
   nxtsecure openclaw vt file /tmp/sample.bin --allow-uploads
 `);
@@ -76,6 +78,13 @@ function takeOption(argv, optionName) {
 
 function hasFlag(argv, flagName) {
   return argv.includes(flagName);
+}
+
+function commandExists(commandName) {
+  const result = spawnSync('sh', ['-c', `command -v "${commandName}"`], {
+    stdio: 'ignore'
+  });
+  return result.status === 0;
 }
 
 function withoutOption(argv, optionName) {
@@ -167,6 +176,35 @@ function commandPaths(argv) {
   console.log(`configExample=${paths.configExample}`);
 }
 
+function commandDoctor(argv) {
+  if (argv.length !== 0) {
+    fail(`Unknown doctor arguments: ${argv.join(' ')}`);
+  }
+
+  const checks = [
+    ['node >= 18', Number.parseInt(process.versions.node.split('.')[0], 10) >= 18, process.versions.node],
+    ['bash available', commandExists('bash'), 'required for bundled scripts'],
+    ['git available', commandExists('git'), 'recommended for release workflow'],
+    ['npm available', commandExists('npm'), 'required for package workflow'],
+    ['audit script present', existsSync(paths.audit), paths.audit],
+    ['cron script present', existsSync(paths.cron), paths.cron],
+    ['VirusTotal helper present', existsSync(paths.vt), paths.vt],
+    ['config example present', existsSync(paths.configExample), paths.configExample]
+  ];
+
+  let failures = 0;
+  for (const [label, ok, detail] of checks) {
+    console.log(`${ok ? 'OK' : 'FAIL'} ${label}${detail ? ` (${detail})` : ''}`);
+    if (!ok) {
+      failures += 1;
+    }
+  }
+
+  if (failures > 0) {
+    process.exit(1);
+  }
+}
+
 function runOpenClaw(argv) {
   const [command = 'help', ...rest] = argv;
 
@@ -187,6 +225,9 @@ function runOpenClaw(argv) {
       break;
     case 'config':
       commandConfig(rest);
+      break;
+    case 'doctor':
+      commandDoctor(rest);
       break;
     case 'paths':
       commandPaths(rest);

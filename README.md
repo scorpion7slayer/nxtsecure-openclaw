@@ -62,9 +62,20 @@ npm run nxtsecure -- openclaw cron install --log ~/openclaw-security-audit.log
 npm run nxtsecure -- openclaw help
 npm run nxtsecure -- openclaw audit --config ./openclaw-security-audit.conf
 npm run nxtsecure -- openclaw cron install --log ~/openclaw-security-audit.log
+npm run nxtsecure -- openclaw doctor
 npm run nxtsecure -- openclaw vt url https://example.test
 npm run nxtsecure -- openclaw vt file /path/to/sample.bin
 ```
+
+## Doctor
+
+Use `doctor` to verify that the local environment is ready before running the audit:
+
+```bash
+npm run nxtsecure -- openclaw doctor
+```
+
+It checks the presence of Node.js, npm, bash, git, and the bundled audit files.
 
 ## Release and publish
 
@@ -77,8 +88,8 @@ This repository is configured for npm trusted publishing with GitHub Actions.
 4. Create and push a matching git tag:
 
 ```bash
-git tag v0.1.1
-git push origin v0.1.1
+git tag v0.1.2
+git push origin v0.1.2
 ```
 
 Pushing a `v*` tag triggers `.github/workflows/publish.yml`, which publishes the package to npm using OIDC.
