@@ -88,8 +88,8 @@ This repository is configured for npm trusted publishing with GitHub Actions.
 4. Create and push a matching git tag:
 
 ```bash
-git tag v0.1.2
-git push origin v0.1.2
+git tag v0.1.3
+git push origin v0.1.3
 ```
 
 Pushing a `v*` tag triggers `.github/workflows/publish.yml`, which publishes the package to npm using OIDC.
