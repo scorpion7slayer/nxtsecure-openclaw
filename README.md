@@ -66,6 +66,23 @@ npm run nxtsecure -- openclaw vt url https://example.test
 npm run nxtsecure -- openclaw vt file /path/to/sample.bin
 ```
 
+## Release and publish
+
+This repository is configured for npm trusted publishing with GitHub Actions.
+
+1. Make sure npm trusted publishing points to:
+   `scorpion7slayer / nxtsecure-openclaw / publish.yml`
+2. Update the version in `package.json`
+3. Commit and push to `main`
+4. Create and push a matching git tag:
+
+```bash
+git tag v0.1.1
+git push origin v0.1.1
+```
+
+Pushing a `v*` tag triggers `.github/workflows/publish.yml`, which publishes the package to npm using OIDC.
+
 ## VirusTotal mode
 
 This repository intentionally avoids the VirusTotal API.
